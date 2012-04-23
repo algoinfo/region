@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title></title>
+</head>
+<style type="text/css">
+
+</style>
+
+<body>
+
+<textarea id="text" style="word-wrap: break-word;" cols="70" rows="9"></textarea>
+<input id="input"></input>
+
+
+<script type="text/javascript" src ="jquery-1.4.js" ></script>
+<script type="text/javascript" src ="region.js" ></script>
+
+<script type="text/javascript">
+	
+
+	var saveEle = 0;
+	$("#text").focus();
+		
+	var pop = $('<div style="background:#000;position:absolute;left:0px;top:0px;color:#fff;">hi</div>');	
+	
+	$("body").append(pop);
+		
+	$("input,textarea").live("keyup",function(e) {
+		saveEle = this;
+		
+		var str = this.value;
+			caretLeft = where.getRangePos(this).start,
+			lastChar = str.charAt(caretLeft - 1);
+		
+		try{						
+			where.init(this);
+			var pos = where.getPos(this,caretLeft),
+				st = pos.scrollTop || $("body").scrollTop(), //body's scrollTop
+				t = (pos.bottom || pos.top) + st;	
+				
+			pop.css({"left":pos.left + "px","top":t + "px"});
+		}catch(ex) {
+		}
+	});	
+	
+	
+	pop.click(function() {
+		alert(4);
+		where.insertToCaret(saveEle,this.innerHTML);
+	});
+
+</script>
+
+
+</body>
+</html>
+
